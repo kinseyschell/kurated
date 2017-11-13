@@ -1,0 +1,224 @@
+<html>
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.js"></script>
+    <script type="text/javascript">
+    var app = angular.module('kuratedApp', []);
+        app.controller('kuratedController', function($scope) {
+
+            $scope.addStr = "";
+            $scope.addTitle = "";
+            $scope.addType = "";
+
+            $scope.srcs = [
+                {
+                    src: "https://betches.com",
+                    title: "betches", 
+                    type: "Gossip",
+                    fullScreen: false
+                }, 
+                {
+                    src: "https://revolve.com", 
+                    title: "revolve", 
+                    type: "Fashion", 
+                    fullScreen: false
+                },
+                {   
+                    src: "https://crooked.com/", 
+                    title: "crooked podcasts", 
+                    type: "Audio", 
+                    fullScreen: false
+                },
+                {  
+                    src: "http://weworewhat.com/", 
+                    title: "we wore what", 
+                    type: "Fashion", 
+                    fullScreen: false
+                },  {
+                    src: "https://www.recesscity.com/travel/", 
+                    title: "RecessCity", 
+                    type: "Travel",  
+                    fullScreen: false
+                }
+
+            ];
+
+                $scope.addURL = function(){
+                    var obj = {
+                        src: $scope.addStr, 
+                        title: $scope.addTitle, 
+                        type: $scope.addType
+                    };
+                    $scope.srcs.push(obj);
+                };
+            });
+
+        $scope.removeFrame = function(index){
+            console.log('index', index);
+            $scope.srcs = $scope.srcs.splice(index, 1);
+        }
+    </script>
+  </head>
+
+  <body ng-app="kuratedApp" ng-controller="kuratedController">
+        <img src="http://www.freepngimg.com/download/champagne/5-2-champagne-picture.png" class="kins-champ" height="200" width="300"/>
+        <img class="kins-logo" src="http://kuratedbykirsten.com/wp-content/uploads/2016/11/kurated_home_logo.jpg" height="100" width="400"/>
+
+        <div ng-repeat="obj in srcs" class="kins-first-frame" ng-class="{'full-screen' : obj.fullScreen}">
+            <div class="kins-frame-title">
+                <span>{{obj.title}}</span>
+                <button class="kins-size-btns" ng-if="!obj.fullScreen" ng-click="obj.fullScreen = true">
+                   Super Size Me
+                </button>
+                <button ng-if="obj.fullScreen" class="kins-size-btns" ng-click="obj.fullScreen = false">
+                   Get Skinny
+                </button>
+                <button ng-click="removeFrame(index)">Remove</button></div>
+            <iframe class="kins-iframe" src="{{obj.src}}"></iframe>
+        </div>
+
+        <div class="kins-first-frame">
+            Add New Site: 
+            <div><input type="text" ng-model="addStr" placeholder="Add URL"/></div>
+            <div><input type="text" ng-model="addTitle" placeholder="Add Title"/></div>
+            <div><input type="text" ng-model="addType" placeholder="Add Type"/></div>
+            <div><button ng-click="addURL()">Add Site</button></div>
+        </div>
+     <!--
+     <div class="kins-first-frame" ng-click="hideFrame = !hideFrame" ng-init="hideFrame = true">
+        <span class="kins-frame-title">Morning Joe</span>
+        <span class="kinsey-frame-container" ng-if="!hideFrame">
+        <iframe src="https://www.stitcher.com/podcast/msnbc-morning-joe/e/52180957?autoplay=true"  style="float: right; overflow-x:hidden; overflow-y:scroll; height: 20rem"></iframe>
+        </span>
+    </div> -->
+    <div class="kins-anna-says">
+        <div>not working at work ... </div>
+        <div>groundbreaking</div>
+    </div>
+    <span class="showAnna" ng-if="showAnna">
+        <img class="kins-anna" src="http://ciadoestilo.files.wordpress.com/2010/02/anna-wintour-copia.png" alt="Smiley face" height="300" width="200"/>
+    </span>
+  </body>
+<style type="text/css">
+    .kins-title{
+        color: pink;
+        text-align: center;
+        font-family: serif;
+        font-kerning: 1rem;
+        letter-spacing: 31px;
+    }
+
+    .kins-iframe{
+        width: 100%;
+        height: 93%;
+        border: none;
+        margin-bottom: 1rem;
+    }
+
+    .kins-frame-title{
+        color: white;
+        background: pink;
+        text-align: center;
+        font-family: serif;
+        font-kerning: 1rem;
+        letter-spacing: 31px;
+        padding-bottom: 1rem;
+
+    }
+    .kins-tag-line{
+        text-align: center; 
+
+    }   
+    .kins-first-frame{
+        width: 47%;
+        height: 37rem;
+        border: none;
+        border: 12px solid pink;
+        display: block;
+        float: left;
+        margin-right: 0.9rem;
+        margin-bottom: 1rem;
+        margin-top:1rem;
+    }
+
+    .kins-first-frame.full-screen{
+        width:100%;
+    }
+
+     .kins-first-frame.hide-frame{
+        height: 5rem;
+     }
+
+    .hideFrame{
+        display: none;
+       }
+
+       .kins-champ{
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: rotate(180deg);
+
+       }
+
+       .kins-logo{
+        
+       }
+
+    .kins-second-frame{
+        width: 47%;
+        height: 37rem;
+        border: none;
+        margin-top:7rem;
+        border: 12px solid pink;
+    }
+
+    .kins-first-frame.right{
+        float: right;
+    }
+
+    .kins-anna{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
+    .kins-cc{
+        position: relative;
+        bottom: 0;
+        height: 100px;
+        bottom: 14rem;
+        left: 16rem;
+    }
+
+    .kins-cc:hover{
+        background-color: pink;
+        cursor: pointer;
+        color: white;
+    }
+
+    ::-webkit-scrollbar
+    {
+        width: 10px;
+        background-color: white;
+    }
+
+
+    .kins-cc-text{
+        position: relative;
+        bottom: 0;
+        height: 100px;
+        bottom: 14rem;
+        left: 58rem;
+    }
+    .kins-anna-says{
+       position: absolute;
+        bottom: 3rem;
+        left: 14%;
+        letter-spacing: 10px;
+        background: white;
+        padding-right: .2rem;
+        padding-left: .2rem;
+
+    }
+</style>
+</html>
