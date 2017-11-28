@@ -1,0 +1,31 @@
+{
+  "name": "kinsey_kurated",
+  "version": "0.1.0",
+  "description": "Use for quick SASS/CSS development",
+  "namespace": "kinsey",
+  "homepage": "http://www.kurated.xyz",
+  "author": {
+    "name": "Kinsey Schell",
+    "email": "kinseyschell@gmail.com",
+    "url": "http://www.kurated.com",
+    "copyright": "Copyright © 2017"
+  },
+  "keywords": [
+    "grunt",
+    "sass"
+  ],
+  "devDependencies": {
+    "angular": "^1.6.3",
+    "angular-strap": "^2.3.12",
+    "autoprefixer": "*",
+    "csswring": "*",
+    "grunt": "*",
+    "grunt-contrib-connect": "*",
+    "grunt-contrib-sass": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-postcss": "*"
+  },
+  "dependencies": {
+    "load-grunt-tasks": "*"
+  }
+}
