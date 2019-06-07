@@ -1,223 +1,250 @@
 <html>
-  <head>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.js"></script>
-    <script type="text/javascript">
-    var app = angular.module('kuratedApp', []);
-        app.controller('kuratedController', function($scope) {
 
-            $scope.addStr = "";
-            $scope.addTitle = "";
-            $scope.addType = "";
+<head>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.js"></script>
+  <script type="text/javascript">
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope) {
+      console.log('hello world!');
+      $scope.lessons = [];
+      $scope.lessonPasswords = ['hi there!', 'apple', 'sunny', 'code', 'practice', 'fun'];
 
-            $scope.srcs = [
-                {
-                    src: "https://betches.com",
-                    title: "betches", 
-                    type: "Gossip",
-                    fullScreen: false
-                }, 
-                {
-                    src: "https://revolve.com", 
-                    title: "revolve", 
-                    type: "Fashion", 
-                    fullScreen: false
-                },
-                {   
-                    src: "https://crooked.com/", 
-                    title: "crooked podcasts", 
-                    type: "Audio", 
-                    fullScreen: false
-                },
-                {  
-                    src: "http://weworewhat.com/", 
-                    title: "we wore what", 
-                    type: "Fashion", 
-                    fullScreen: false
-                },  {
-                    src: "https://www.recesscity.com/travel/", 
-                    title: "RecessCity", 
-                    type: "Travel",  
-                    fullScreen: false
-                }
-
-            ];
-
-                $scope.addURL = function(){
-                    var obj = {
-                        src: $scope.addStr, 
-                        title: $scope.addTitle, 
-                        type: $scope.addType
-                    };
-                    $scope.srcs.push(obj);
-                };
-            });
-
-        $scope.removeFrame = function(index){
-            console.log('index', index);
-            $scope.srcs = $scope.srcs.splice(index, 1);
+      function createNewLesson(title, steps) {
+        console.log('creating lesson: ', title);
+        let lesson = {};
+        lesson.title = title;
+        lesson.steps = steps;
+        if (lesson.title === 'Lets Write Some CSS') {
+          lesson.links = [
+            {
+              link: 'https://www.w3schools.com/css/css_text.asp',
+              label: 'More Properties Here!'
+            }
+          ]
         }
-    </script>
-  </head>
+        if ($scope.lessons.length >= 1) {
+          lesson.hideLesson = true;
+        } else {
+          lesson.hideLesson = false;
+          lesson.password = $scope.lessonPasswords[0];
+        }
+        $scope.lessons.push(lesson);
+      };
 
-  <body ng-app="kuratedApp" ng-controller="kuratedController">
-        <img src="http://www.freepngimg.com/download/champagne/5-2-champagne-picture.png" class="kins-champ" height="200" width="300"/>
-        <img class="kins-logo" src="http://kuratedbykirsten.com/wp-content/uploads/2016/11/kurated_home_logo.jpg" height="100" width="400"/>
-        <div ng-repeat="obj in srcs" class="kins-first-frame" ng-class="{'full-screen' : obj.fullScreen}">
-            <div class="kins-frame-title">
-                <span>{{obj.title}}</span>
-                <button class="kins-size-btns" ng-if="!obj.fullScreen" ng-click="obj.fullScreen = true">
-                   Super Size Me
-                </button>
-                <button ng-if="obj.fullScreen" class="kins-size-btns" ng-click="obj.fullScreen = false">
-                   Get Skinny
-                </button>
-                <button ng-click="removeFrame(index)">Remove</button></div>
-            <iframe class="kins-iframe" src="{{obj.src}}"></iframe>
-        </div>
+      let stepMap = {};
+      stepMap['JPM Creates A Website'] = [
+        'Open VSCode',
+        'Create a file called index.html',
+        'Write your first line of code: <html></html>',
+        'Now we will add a head and body tag',
+        'head: <head></head>',
+        'body: <body></body>',
+        'So now we have: <html><head></head><body></body></html>',
+        'Now we will add within the body tag (notice how each tag opens with <> and closes with </>',
+        'Insert <div>Hello World!</div> into your body tag, click on the file in finder and see your site!',
+      ];
 
-        <div class="kins-first-frame">
-            Add New Site: 
-            <div><input type="text" ng-model="addStr" placeholder="Add URL"/></div>
-            <div><input type="text" ng-model="addTitle" placeholder="Add Title"/></div>
-            <div><input type="text" ng-model="addType" placeholder="Add Type"/></div>
-            <div><button ng-click="addURL()">Add Site</button></div>
-        </div>
-     <!--
-     <div class="kins-first-frame" ng-click="hideFrame = !hideFrame" ng-init="hideFrame = true">
-        <span class="kins-frame-title">Morning Joe</span>
-        <span class="kinsey-frame-container" ng-if="!hideFrame">
-        <iframe src="https://www.stitcher.com/podcast/msnbc-morning-joe/e/52180957?autoplay=true"  style="float: right; overflow-x:hidden; overflow-y:scroll; height: 20rem"></iframe>
-        </span>
-    </div> -->
-    <div class="kins-anna-says">
-        <div>These are a few of my  </div>
-        <div>favorite things</div>
+      stepMap['Customize our HTML'] = [
+        'Congrats! You have made your first Hello World! Lets change hello world to something unique, your names!',
+        'Replace hello world with your name and your teammates names: <div> Kinsey Schell & Fitzgeralds Site</div>',
+        'Lets add more information! Create a new line with a fun fact: <div>Fitz turned five yesterday!</div>',
+        'Now we have two lines of code:',
+        '<div> Kinsey Schell & Fitzgeralds Site</div>',
+        '<div>Fitz turned five yesterday!</div>',
+        'Keep adding until youre ready to add some colors and styles'
+      ]
+
+      stepMap['Lets Write Some CSS'] = [
+        'Add a class attribute to your div',
+        'This will look like: <div class="title">Hello World!</div>',
+        'Now lets create some styles for our div. <style type="text/css"></style> in the head tag. So now we have <head> <style type="text/css"> </style> </head>',
+        'Within our styles we can now give some properties -- colors, font sizes etc. so type: .title{color: red}',
+        'You can use any color you want! Try some other features like .title{font-size: 10px}',
+        'Now lets change that font: Add a body selector body{font-family: "Arial", Arial, sans-serif;}',
+        'notice there is no .body its just body!'
+      ];
+
+
+      stepMap['Hover & Transitions'] = [
+        'Now that we have a class and a div we can do some fun stuff! add a new selector to .title:hover{ }',
+        'Within the brackets lets have it change colors -- enter color: blue',
+        'So now we have: .title{color: red}  .title:hover{color: blue}',
+        'Save your file and view the results!',
+        'Its a bit jerky so lets make this more smooth by adding a transition within your hover selector:',
+        '.title:hover{color: blue; transition: linear 1s;}',
+        'save, now what do you see?'
+      ];
+
+      stepMap['Add An Image'] = [
+        'Scroll to your html code. Lets create an image tag: <img src=""/>',
+        'Notice image tags are different than divs, they close themselves with />',
+        'Now copy and paste this link into src: https://a.espncdn.com/i/teamlogos/nfl/500/no.png',
+        'So now you have <img src="https://a.espncdn.com/i/teamlogos/nfl/500/no.png" />',
+        'Refresh your page',
+        'Can you find an image of your own, google any image and copy the image address use as src'
+      ];
+
+
+      stepMap['Add A Transition to you image'] = [
+        'Lets style this image with a selector, add class="myimage" to your image tag so now you have: <img class="myimage" src="https://a.espncdn.com/i/teamlogos/nfl/500/no.png"/>',
+        'In our styles section add .myimage:hover{rotateY(180deg)}',
+        'Save and refresh, hover your mouse over do you think it will do??',
+        'Can you add more transitions?'
+      ];
+
+
+      for (let title in stepMap) {
+        let steps = stepMap[title];
+        createNewLesson(title, steps);
+      }
+
+      $scope.unlockLesson = function (lesson, $index) {
+        console.log($scope.lessonPasswords[$index]);
+        if (lesson.password === $scope.lessonPasswords[$index]) {
+          lesson.hideLesson = false;
+        }
+      }
+
+    });
+  </script>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+
+  <svg class="jstep" width="681px" height="157px" viewBox="0 0 681 157" version="1.1" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linejoin="bevel">
+      <g id="JesusProject-(1)-copy" transform="translate(-56.000000, -145.000000)" stroke="orange" stroke-width="5">
+        <g id="Group-2" transform="translate(56.000000, 148.000000)">
+          <g id="Group-52">
+            <path stroke="orange"
+              d="M0.6143,150.5278 L48.3753,150.5278 L60.0363,136.8998 L56.0863,124.3838 L65.3343,121.0638 C65.3343,121.0638 83.7973,97.8808 137.8723,101.3538 L138.0613,54.3698 L165.2773,33.1328 L177.0293,33.1338 L177.0213,92.9488 L187.2143,93.1418 L187.3113,32.7738 L181.3953,29.4858 L179.4553,18.4848 L213.6743,18.4878 L213.6733,28.1958 L208.4003,33.4678 L208.4003,108.2858 L221.2143,108.2858 L225.1533,108.2628 L225.1533,67.5298 L225.1533,26.5348 L229.6123,26.5348 L229.6123,16.5358 L235.3163,16.5358 L235.3163,0.4848 L261.0433,0.4848 L261.0433,17.2118 L266.9183,17.2118 L266.9183,23.9368 L271.7203,23.9368 L271.7203,93.8878 L284.2343,93.2208 L284.2343,81.9048 L284.2343,40.9098 L290.2043,40.9098 L290.2043,30.9118 L297.8423,30.9118 L297.8423,14.8608 L332.2923,14.8608 L332.2923,31.5868 L340.1593,31.5868 L340.1593,38.3128 L346.5903,38.3128 L346.5903,110.7208"
+              id="Stroke-38"></path>
+            <polyline stroke="orange" id="Stroke-40"
+              points="346.5903 67.4707 361.7703 67.4707 361.7703 0.1147 395.1033 0.1147 395.1033 102.3247 395.1033 110.7207 405.6983 110.7207 405.6983 99.7577 405.6983 52.1937 411.6983 52.1937 411.6983 40.8607 427.6983 30.8607 443.3653 40.5267 443.3653 52.1937 449.6983 52.1937 449.6983 110.7207">
+            </polyline>
+            <polyline stroke="orange" id="Stroke-42"
+              points="448.6987 77.7207 473.6987 77.7207 473.6987 57.3877 481.0317 57.3877 490.3657 22.0537 497.6987 56.0537 505.6987 56.0537 505.6987 77.7207 525.0317 77.7207 525.0317 145.3877">
+            </polyline>
+            <polyline stroke="orange" id="Stroke-44"
+              points="540.8799 144.5615 540.8799 119.2285 547.9749 91.2285 553.7799 117.8945 553.7799 129.2285 562.8099 129.2285 562.8099 113.8945 571.8399 113.8945 571.8399 98.5615 578.2899 98.5615 578.2899 87.2285 585.3849 54.5615">
+            </polyline>
+            <polyline stroke="orange" id="Stroke-46"
+              points="585.3853 54.5615 592.4803 87.2285 592.4803 98.5615 598.9303 98.5615 598.9303 113.8945 607.9603 113.8945 607.9603 129.2285 616.9903 129.2285 616.9903 117.8945 622.7953 91.2285 629.8903 119.2285 629.8903 144.5615 629.8903 151.3875">
+            </polyline>
+            <path stroke="orange" d="M627.8799,149.5615 L680.6449,149.5615" id="Stroke-48"></path>
+            <path stroke="orange" d="M523.0322,144.5278 L543.8942,144.5278" id="Stroke-50"></path>
+          </g>
+        </g>
+      </g>
+    </g>
+  </svg>
+  <div class="lesson-container" ng-repeat="lesson in lessons">
+    <div class="title-container">
+      <div class="title"><span class="number">{{$index + 1}}</span>{{lesson.title}}</div>
+      <div class="password" ng-hide="lessons[$index - 1].hideLesson">Lesson Password:
+        <input ng-disabled="!lesson.hideLesson" ng-class="{'correct' : !lesson.hideLesson, 'wrong' : lesson.hideLesson}"
+          ng-model="lesson.password" ng-change="unlockLesson(lesson, $index)" class="field__input" type="text" />
+      </div>
     </div>
-    <span class="showAnna" ng-if="showAnna">
-        <img class="kins-anna" src="http://ciadoestilo.files.wordpress.com/2010/02/anna-wintour-copia.png" alt="Smiley face" height="300" width="200"/>
-    </span>
-  </body>
+    <div class="steps" ng-repeat="step in lesson.steps" ng-hide="lesson.hideLesson">
+      <p>
+        <span class="number">{{$index + 1}}</span>{{step}}
+      </p>
+    </div>
+    <div class="steps" ng-repeat="link in lesson.links" ng-hide="lesson.hideLesson">
+      <a href="{{link.link}}">{{link.label}}</a>
+    </div>
+  </div>
+</body>
 <style type="text/css">
-    .kins-title{
-        color: pink;
-        text-align: center;
-        font-family: serif;
-        font-kerning: 1rem;
-        letter-spacing: 31px;
+  body {
+    font-family: "Arial", Arial, sans-serif;
+    margin: 0;
+    margin-bottom: 2rem;
+  }
+
+  .jstep {
+    position: relative;
+    right: -26%;
+    margin-top: 1px;
+  }
+
+  .lesson-container {
+    margin-left: 2rem;
+    margin-top: 2rem;
+    position: relative;
+  }
+
+  .title {
+    color: #1FC0D9;
+    display: block;
+    border-bottom: 10px solid #87D91F;
+    width: 0%;
+    text-align: center;
+    animation: line 2s linear forwards;
+    font-size: 3rem;
+  }
+
+  .title-container {
+    width: 100%;
+  }
+
+  .title:hover {
+    cursor: pointer;
+    font-size: 3.5rem;
+    color: orange;
+  }
+
+  @keyframes line {
+    from {
+      left: 50%;
+      width: 0%;
     }
 
-    .kins-iframe{
-        width: 100%;
-        height: 93%;
-        border: none;
-        margin-bottom: 1rem;
+    to {
+      left: 5%;
+      width: 90%;
     }
+  }
 
-    .kins-frame-title{
-        color: white;
-        background: pink;
-        text-align: center;
-        font-family: serif;
-        font-kerning: 1rem;
-        letter-spacing: 31px;
-        padding-bottom: 1rem;
+  .path {
+    fill: orange;
+    position: relative;
+    right: -48%;
+  }
 
-    }
-    .kins-tag-line{
-        text-align: center; 
+  .title-wrap {
+    position: relative;
+  }
 
-    }   
-    .kins-first-frame{
-        width: 47%;
-        height: 37rem;
-        border: none;
-        border: 12px solid pink;
-        display: block;
-        float: left;
-        margin-right: 0.9rem;
-        margin-bottom: 1rem;
-        margin-top:1rem;
-    }
+  .password {
+    margin-top: 1rem;
+  }
 
-    .kins-first-frame.full-screen{
-        width:100%;
-    }
+  .field__input {
+    border: none;
+    font-size: 1.5rem;
+    transition: linear 1s;
+  }
 
-     .kins-first-frame.hide-frame{
-        height: 5rem;
-     }
+  .wrong {
+    color: red;
+    border-bottom: 4px solid red;
+  }
 
-    .hideFrame{
-        display: none;
-       }
+  .correct {
+    color: #87D91F;
+    border-bottom: 4px solid #87D91F;
+  }
 
-       .kins-champ{
-        position: absolute;
-        top: 0;
-        right: 0;
-        transform: rotate(180deg);
-
-       }
-
-       .kins-logo{
-        
-       }
-
-    .kins-second-frame{
-        width: 47%;
-        height: 37rem;
-        border: none;
-        margin-top:7rem;
-        border: 12px solid pink;
-    }
-
-    .kins-first-frame.right{
-        float: right;
-    }
-
-    .kins-anna{
-        position: absolute;
-        bottom: 0;
-        left: 0;
-    }
-
-    .kins-cc{
-        position: relative;
-        bottom: 0;
-        height: 100px;
-        bottom: 14rem;
-        left: 16rem;
-    }
-
-    .kins-cc:hover{
-        background-color: pink;
-        cursor: pointer;
-        color: white;
-    }
-
-    ::-webkit-scrollbar
-    {
-        width: 10px;
-        background-color: white;
-    }
-
-
-    .kins-cc-text{
-        position: relative;
-        bottom: 0;
-        height: 100px;
-        bottom: 14rem;
-        left: 58rem;
-    }
-    .kins-anna-says{
-       position: absolute;
-        bottom: 3rem;
-        left: 14%;
-        letter-spacing: 10px;
-        background: white;
-        padding-right: .2rem;
-        padding-left: .2rem;
-
-    }
+  .number {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
 </style>
+
 </html>
